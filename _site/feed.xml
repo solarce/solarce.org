@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-11-03T18:09:59-08:00</updated>
+<updated>2014-11-04T07:07:10-08:00</updated>
 <id>/</id>
 <author>
   <name>Brandon Burton</name>
@@ -14,9 +14,9 @@
 
 
 <entry>
-  <title type="html"><![CDATA[A Post with Images]]></title>
-  <link rel="alternate" type="text/html" href="/articles/sample-post-images/"/>
-  <id>/articles/sample-post-images</id>
+  <title type="html"><![CDATA[The technologist's prayer]]></title>
+  <link rel="alternate" type="text/html" href="/writing/technologists-prayer/"/>
+  <id>/writing/technologists-prayer</id>
   <published>2013-05-22T00:00:00-07:00</published>
   <updated>2013-05-22T00:00:00-07:00</updated>
   <author>
@@ -24,63 +24,60 @@
     <uri></uri>
     <email>brandon@inatree.org</email>
   </author>
-  <category scheme="/tags/#sample-post" term="sample-post" /><category scheme="/tags/#images" term="images" /><category scheme="/tags/#test" term="test" />
+  <category scheme="/tags/#technologist" term="technologist" /><category scheme="/tags/#prayer" term="prayer" /><category scheme="/tags/#yak-shaving" term="yak-shaving" />
   <content type="html">
-    &lt;p&gt;Here are some examples of what a post with images might look like. If you want to display two or three images next to each other responsively use &lt;code&gt;figure&lt;/code&gt; with the appropriate &lt;code&gt;class&lt;/code&gt;. Each instance of &lt;code&gt;figure&lt;/code&gt; is auto-numbered and displayed in the caption.&lt;/p&gt;
+    &lt;blockquote&gt;
+  &lt;p&gt;God, grant me the serenity to accept the &lt;a href=&quot;http://projects.csail.mit.edu/gsb/old-archive/gsb-archive/gsb2000-02-11.html&quot;&gt;yak shaves&lt;/a&gt; I cannot change, the courage to avoid the yaks I can, and wisdom to know the difference.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h2 id=&quot;figures-for-images-or-video&quot;&gt;Figures (for images or video)&lt;/h2&gt;
+    &lt;p&gt;&lt;a href=&quot;/writing/technologists-prayer/&quot;&gt;The technologist's prayer&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on May 22, 2013.&lt;/p&gt;
+  </content>
+</entry>
 
-&lt;h3 id=&quot;one-up&quot;&gt;One Up&lt;/h3&gt;
 
-&lt;figure&gt;
-	&lt;a href=&quot;http://farm9.staticflickr.com/8426/7758832526_cc8f681e48_b.jpg&quot;&gt;&lt;img src=&quot;http://farm9.staticflickr.com/8426/7758832526_cc8f681e48_c.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;figcaption&gt;&lt;a href=&quot;http://www.flickr.com/photos/80901381@N04/7758832526/&quot; title=&quot;Morning Fog Emerging From Trees by A Guy Taking Pictures, on Flickr&quot;&gt;Morning Fog Emerging From Trees by A Guy Taking Pictures, on Flickr&lt;/a&gt;.&lt;/figcaption&gt;
-&lt;/figure&gt;
+<entry>
+  <title type="html"><![CDATA[The future of monitoring is a toolbox]]></title>
+  <link rel="alternate" type="text/html" href="/writing/future-of-monitoring-toolbox/"/>
+  <id>/writing/future-of-monitoring-toolbox</id>
+  <published>2012-02-12T00:00:00-08:00</published>
+  <updated>2012-02-12T00:00:00-08:00</updated>
+  <author>
+    <name>Brandon Burton</name>
+    <uri></uri>
+    <email>brandon@inatree.org</email>
+  </author>
+  <category scheme="/tags/#monitoring" term="monitoring" />
+  <content type="html">
+    &lt;p&gt;&lt;em&gt;Originally written on February 12th 2012&lt;/em&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;two-up&quot;&gt;Two Up&lt;/h3&gt;
+&lt;p&gt;There’s been a small flurry of discussion today on Twitter and IRC, due to comments from folks who, in response to an &lt;a href=&quot;http://gigaom.com/2012/02/12/why-monitoring-sucks-for-now&quot;&gt;article&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/#!/moonpolysoft&quot;&gt;Cliff Moon&lt;/a&gt;, seem to think that &lt;em&gt;#monitoringsucks&lt;/em&gt; is some kind of &lt;a href=&quot;http://gigaom.com/2012/02/12/why-monitoring-sucks-for-now/#comment-808804&quot;&gt;marketing&lt;/a&gt; &lt;a href=&quot;https://twitter.com/#!/parkercloud/status/168744558589521920&quot;&gt;bullshit&lt;/a&gt;. And that just doesn’t sit right with me, so I hope to set the record straight.Now, I don’t claim to speak for &lt;em&gt;#monitoringsucks&lt;/em&gt; as a whole or represent all the views. However, as an active member of the devops/webops/IT community through Twitter, IRC, blogging, conferences, etc, I think I can speak with some confidence on the topic. Of course, I invite people to respond to this post, via email, Twitter, or on your own blog and correct me where I am wrong or let me know where you disagree. Let’s start at what should be a foregone conclusion. &lt;strong&gt;Monitoring sucks&lt;/strong&gt;. It does. The majority of monitoring systems out there are built around workloads and change processes that are no longer valid for those at the leading edge of things and will continue to become so for more and more of the industry. The future of application environments is dynamic, scalable, and ever changing. It’s a polyglot of language runtimes and operating systems. And in many cases it’s a mixture of IaaS, PaaS, and in-house computing resources. Given that, the idea that monitoring can be a swiss army knife, and a swiss army knife that’s mostly SNMP, curl, and ping, is dead. The future of monitoring is a tool box, and right now, most of the monitoring tools available to us suck, in light of the future I just outlined. So that’s why &lt;em&gt;#monitoringsucks&lt;/em&gt;So where does &lt;em&gt;#monitoringsucks&lt;/em&gt; come from? It comes from the collective realization of the operations community that the future is now and that we need to be outspoken about the future and help our community and industry adapt. You don’t have to look far to see this realization over and over, as evidenced by numerous blog posts, such as&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lusislog.blogspot.com/2011/06/why-monitoring-sucks.html&quot;&gt;Why monitoring sucks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://lusislog.blogspot.com/2011/07/monitoring-sucks-watch-your-language.html&quot;&gt;Monitoring Sucks – Watch your language&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://obfuscurity.com/2011/07/Monitoring-Sucks-Do-Something-About-It&quot;&gt;Monitoring Sucks. Do Something About It.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Monitoring Sucks. Latency Sucks More. &lt;a href=&quot;http://holmwood.id.au/~lindsay/2012/01/09/monitoring-sucks-latency-sucks-more/&quot;&gt;part 1&lt;/a&gt;, &lt;a href=&quot;http://holmwood.id.au/~lindsay/2012/01/11/monitoring-system-equal-web-app-when-diagnosing-performance-bottlenecks/&quot;&gt;part 2&lt;/a&gt;, and &lt;a href=&quot;http://holmwood.id.au/~lindsay/2012/01/11/monitoring-system-equal-web-app-when-diagnosing-performance-bottlenecks/&quot;&gt;part 3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.socallinuxexpo.org/scale10x/presentations/panel-monitoring-sucks&quot;&gt;Monitoring Sucks Panel at SCaLe 10&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.krisbuytaert.be/blog/we-didnt-fix-it&quot;&gt;The #monitoringsucks HackFest after FOSDEM&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;And of course, &lt;a href=&quot;https://twitter.com/#!/patrickdebois&quot;&gt;Patrick Debois’s&lt;/a&gt; epic series – Monitoring Wonderland Survey&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jedi.be/blog/2012/01/03/monitoring-wonderland-survey-introduction/&quot;&gt;Monitoring Wonderland Survey – Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jedi.be/blog/2012/01/03/monitoring-wonderland-metrics-api-gateways/&quot;&gt;Monitoring Wonderland Survey – Metrics – API – Gateways&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jedi.be/blog/2012/01/03/monitoring-wonderland-nagios-the-mighty-beast/&quot;&gt;Monitoring Wonderland Survey – Nagios the Mighty Beast&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jedi.be/blog/2012/01/04/monitoring-wonderland-moving-up-the-stack-application-user-metrics/&quot;&gt;Monitoring Wonderland Survey – Moving up the stack Application and User metric&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jedi.be/blog/2012/01/04/monitoring-wonderland-visualization/&quot;&gt;Monitoring Wonderland Survey – Visualization&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I could go on and on with links to posts that are either addressing the root problems of why &lt;em&gt;#monitoringsucks&lt;/em&gt;, helping survey the current tools, or describing new systems being built to help address the future and make monitoring suck a little bit less, but the point of this article isn’t to be a link dump, it’s to help educate on what &lt;em&gt;#monitoringsucks&lt;/em&gt; really is and really isn’t. Of course, you may ask “now that’ve you’ve bitched, what are you doing about it?”, which is an excellent and reasonable question.&lt;/p&gt;
 
-&lt;p&gt;Apply the &lt;code&gt;half&lt;/code&gt; class like so to display two images side by side that share the same caption.&lt;/p&gt;
+&lt;p&gt;So what is the community doing about, besides saying &lt;em&gt;monitoring sucks!&lt;/em&gt;? We are:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Discussing is on twitter with the &lt;a href=&quot;https://twitter.com/#!/search/%23monitoringsucks&quot;&gt;#monitoringsucks&lt;/a&gt; hashtag&lt;/li&gt;
+  &lt;li&gt;Discussing it at conferences, like &lt;a href=&quot;ttp://www.socallinuxexpo.org/scale10x/presentations/panel-monitoring-sucks&quot;&gt;SCaLE&lt;/a&gt; or &lt;a href=&quot;http://www.krisbuytaert.be/blog/we-didnt-fix-it&quot;&gt;FOSDEM&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Discussing it on &lt;a href=&quot;irc://irc.freenode.net/#monitoringsucks&quot;&gt;IRC&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Providing centralized places to help people find tools for their toolboxes, like the &lt;a href=&quot;https://github.com/monitoringsucks/tool-repos&quot;&gt;Github Tools Repo&lt;/a&gt; and a handy &lt;a href=&quot;http://monitoring.no.de/&quot;&gt;web interface to the repo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Building new tools, some commercial, some open source, like &lt;a href=&quot;http://circonus.com/&quot;&gt;Circonus&lt;/a&gt;, &lt;a href=&quot;https://boundary.com/&quot;&gt;Boundary&lt;/a&gt;, &lt;a href=&quot;https://metrics.librato.com/&quot;&gt;Librato Metrics&lt;/a&gt;, &lt;a href=&quot;http://graphite.wikidot.com/&quot;&gt;Graphite&lt;/a&gt;, or &lt;a href=&quot;http://www.sonian.com/cloud-monitoring-sensu/&quot;&gt;Sensu&lt;/a&gt; that are built from the ground up to be ready for future that is fast becoming reality for operations folks&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So &lt;em&gt;#monitoringsucks&lt;/em&gt; isn’t some marketing bullshit meant to help shine a light on Boundary, it’s a real and correct topic that is being driven by the community to help better the state of monitoring. And if you find fault in Cliff for writing an article on it, because the company he is a cofounder of is trying to help address things, while also trying to make money, I think that’s a load of horseshit. I applaud the folks at &lt;a href=&quot;http://circonus.com/&quot;&gt;Circonus&lt;/a&gt;, &lt;a href=&quot;https://boundary.com/&quot;&gt;Boundary&lt;/a&gt;, &lt;a href=&quot;https://metrics.librato.com/&quot;&gt;Librato Metrics&lt;/a&gt;, and other companies that are helping to improve the state of things, but also making money at it, because the idea that just because someone is trying to make money in something, automatically discredits them due to &lt;em&gt;bias&lt;/em&gt; or whatever, is crap, especially in this case, where if you spend even 15 minutes to see what &lt;em&gt;#monitoringsucks&lt;/em&gt; is about, you’ll see it’s from the community. Quite frankly, I think a lot of the resistance things like &lt;em&gt;#monitoringsucks&lt;/em&gt; or &lt;em&gt;devops&lt;/em&gt; get from certain people is just those people trying to push their own &lt;em&gt;brand&lt;/em&gt; by being a &lt;em&gt;thought leader&lt;/em&gt;, but that’s a topic for another post.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;figure&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;half&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/images/image-filename-1.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/images/image-filename-2.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;figcaption&amp;gt;&lt;/span&gt;Caption describing these two images.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/figcaption&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/figure&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;And you’ll get something that looks like this:&lt;/p&gt;
-
-&lt;figure class=&quot;half&quot;&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;
-	&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;
-	&lt;figcaption&gt;Two images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&quot;three-up&quot;&gt;Three Up&lt;/h3&gt;
-
-&lt;p&gt;Apply the &lt;code&gt;third&lt;/code&gt; class like so to display three images side by side that share the same caption.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;figure&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;third&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/1200x600.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/600x300.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/1200x600.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/600x300.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/1200x600.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://placehold.it/600x300.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;figcaption&amp;gt;&lt;/span&gt;Caption describing these three images.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/figcaption&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/figure&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;And you’ll get something that looks like this:&lt;/p&gt;
-
-&lt;figure class=&quot;third&quot;&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;a href=&quot;http://placehold.it/1200x600.jpg&quot;&gt;&lt;img src=&quot;http://placehold.it/600x300.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/a&gt;
-	&lt;figcaption&gt;Three images.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/articles/sample-post-images/&quot;&gt;A Post with Images&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on May 22, 2013.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/writing/future-of-monitoring-toolbox/&quot;&gt;The future of monitoring is a toolbox&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on February 12, 2012.&lt;/p&gt;
   </content>
 </entry>
 

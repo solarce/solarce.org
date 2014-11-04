@@ -2,7 +2,7 @@
 
 title: solarce.org
 locale: en_US
-description: sysadmin's sojourn
+description: season's gif-ings
 logo:
 search: true
 url: http://solarce.org
@@ -33,7 +33,7 @@ exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.
 # Site owner
 owner:
   name: Brandon Burton
-  avatar: bio-photo.jpg
+  avatar: bb_profile.jpeg
   email: brandon@inatree.org
   twitter: solarce
   github: solarce

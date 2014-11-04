@@ -13,9 +13,10 @@ $doc-line-height: 24;
 body {
 	margin-top: 0px + $doc-line-height;
 	font-size: 0px + $doc-font-size;
-  background-image: url('images/fall_bg.jpg');
+  background-image: url('/images/sea_bg.jpg');
   background-repeat: no-repeat;
-  background-position: 0px 0px, center;	
+  background-position: 0px 0px, center;
+  background-size: 100%;
 }
 
 

@@ -17,7 +17,7 @@ body {
 	ul {
 		display: inline-block;
 		vertical-align: top;
-		margin: 0 0 50px;
+		margin: 0 0 10px;
 		padding: 4px 20px;
 		background-color: $black;
 		@include rounded(0 0 10px 10px);
@@ -90,7 +90,8 @@ body {
 // Masthead
 // --------------------------------------------------
 .masthead {
-	margin-top: 40px;
+	margin-top: 5px;
+	margin-bottom: 40px;
 	@include clearfix;
 	@media #{$medium} {
 		margin-top: 0;
@@ -137,6 +138,7 @@ body {
 	}
 }
 .site-title {
+  margin-top: 2px;
 	margin-bottom: 0;
 	-webkit-animation-duration: 1s;
 	-moz-animation-duration: 1s;
@@ -284,6 +286,7 @@ span + .entry-title {
 	}
 }
 .entry-content {
+  margin-top: 20px;
 	max-width: 640px;
 	width: 100%;
 	margin-right: auto;
@@ -413,6 +416,7 @@ span + .entry-title {
 		padding: 4px 8px;
 		&:hover { color:$black; }
 	}
+	margin-bottom: 5px;
 }
 
 // Chrome Frame

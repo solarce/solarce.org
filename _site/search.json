@@ -1,11 +1,19 @@
 [
 	
 		{
-		  "title"      : "A Post with Images",
+		  "title"      : "The technologist&#39;s prayer",
 		  "category"   : "",
-		  "url"        : "http://solarce.org/articles/sample-post-images/",
+		  "url"        : "http://solarce.org/writing/technologists-prayer/",
 		  "date"       : "2013-05-22 00:00:00 -0700",
 		  "shortdate"  : "May 22, 2013"
+		} ,
+	
+		{
+		  "title"      : "The future of monitoring is a toolbox",
+		  "category"   : "",
+		  "url"        : "http://solarce.org/writing/future-of-monitoring-toolbox/",
+		  "date"       : "2012-02-12 00:00:00 -0800",
+		  "shortdate"  : "February 12, 2012"
 		} 
 	
 ]
