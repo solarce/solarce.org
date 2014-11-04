@@ -1,0 +1,42 @@
+# Site wide configuration
+
+title: solarce.org
+locale: en_US
+description: sysadmin's sojourn
+logo:
+search: true
+url: http://solarce.org
+
+
+# Jekyll configuration
+
+permalink:   /:categories/:title/
+markdown:    kramdown
+highlighter: pygments
+sass:
+  sass_dir: _sass
+  style: compressed
+gems:
+  - jekyll-sitemap
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  use_coderay: false
+
+include: [".htaccess"]
+exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md", "vendor"]
+
+
+# Site owner
+owner:
+  name: Brandon Burton
+  avatar: bio-photo.jpg
+  email: brandon@inatree.org
+  twitter: solarce
+  github: solarce
+  stackexchange: solarce
+  linkedin: solarce
+  instagram: solarce
