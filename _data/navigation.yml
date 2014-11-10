@@ -1,10 +1,13 @@
 # Site navigation links
 
-- title: Home
+- title: home
   url: /
 
-- title: About
+- title: about
   url: /about/
 
-- title: Writing
+- title: writing
   url: /writing/
+
+- title: tips
+  url: /tips/

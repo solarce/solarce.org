@@ -1,0 +1,36 @@
+<h2 id="zooming-a-pane">zooming a pane</h2>
+
+<p>The recently released in <strong>tmux 1.8</strong> includes a new feature, <strong>zoomed panes</strong>, that allows temporarily expanding a pane to the full size of the tmux window to see more of its contents.</p>
+
+<p>In the man page for tmux(1), the feature is described as follows, under the details for the resize-pane command:</p>
+
+<blockquote>
+  <p>With -Z, the active pane is toggled between zoomed (occupying the
+whole of the window) and unzoomed (its normal position in the layout).</p>
+</blockquote>
+
+<p>This command is bound to <code>&lt;prefix&gt; z</code> by default</p>
+
+<p><em>via <a href="http://blog.sanctum.geek.nz/zooming-tmux-panes/">http://blog.sanctum.geek.nz/zooming-tmux-panes/</a></em></p>
+
+<p><em>added 2011-11-09</em></p>
+
+<hr />
+
+<h2 id="working-with-windows">working with windows</h2>
+
+<p><strong>create a new window</strong></p>
+
+<p><code>tmux new-window (prefix + c)</code></p>
+
+<p><strong>move to the window based on index</strong></p>
+
+<p><code>tmux select-window -t :0-9 (prefix + 0-9)</code></p>
+
+<p><strong>rename the current window</strong></p>
+
+<p><code>tmux rename-window (prefix + ,)</code></p>
+
+<p><em>via <a href="http://robots.thoughtbot.com/a-tmux-crash-course">http://robots.thoughtbot.com/a-tmux-crash-course</a></em></p>
+
+<p><em>added 2011-11-09</em></p>

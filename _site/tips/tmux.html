@@ -5,15 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>solarce.org</title>
-
+<title>tmux tricks &#8211; solarce.org</title>
+<meta name="description" content="tmux tips">
 
 
 
 
 <!-- Twitter Cards -->
-<meta name="twitter:title" content="solarce.org">
-
+<meta name="twitter:title" content="tmux tricks">
+<meta name="twitter:description" content="tmux tips">
 <meta name="twitter:site" content="@solarce">
 <meta name="twitter:creator" content="@solarce">
 
@@ -23,16 +23,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="solarce.org">
-
-<meta property="og:url" content="http://solarce.org/">
+<meta property="og:title" content="tmux tricks">
+<meta property="og:description" content="tmux tips">
+<meta property="og:url" content="http://solarce.org/tips/tmux.html">
 <meta property="og:site_name" content="solarce.org">
 
 
 
 
 
-<link rel="canonical" href="http://solarce.org/">
+<link rel="canonical" href="http://solarce.org/tips/tmux.html">
 <link href="http://solarce.org/feed.xml" type="application/atom+xml" rel="alternate" title="solarce.org Feed">
 
 
@@ -132,16 +132,46 @@
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <h1 class="entry-title"></h1>
+        <h1 class="entry-title">tmux tricks</h1>
       </header>
       <div class="entry-content">
-        <ul class="post-list">
- 
-  <li><article><a href="http://solarce.org/writing/technologists-prayer/">The technologist's prayer <span class="entry-date"><time datetime="2013-05-22T00:00:00-07:00">May 22, 2013</time></span></a></article></li>
- 
-  <li><article><a href="http://solarce.org/writing/future-of-monitoring-toolbox/">The future of monitoring is a toolbox <span class="entry-date"><time datetime="2012-02-12T00:00:00-08:00">February 12, 2012</time></span></a></article></li>
+        <h2 id="zooming-a-pane">zooming a pane</h2>
 
-</ul>
+<p>The recently released in <strong>tmux 1.8</strong> includes a new feature, <strong>zoomed panes</strong>, that allows temporarily expanding a pane to the full size of the tmux window to see more of its contents.</p>
+
+<p>In the man page for tmux(1), the feature is described as follows, under the details for the resize-pane command:</p>
+
+<blockquote>
+  <p>With -Z, the active pane is toggled between zoomed (occupying the
+whole of the window) and unzoomed (its normal position in the layout).</p>
+</blockquote>
+
+<p>This command is bound to <code>&lt;prefix&gt; z</code> by default</p>
+
+<p><em>via <a href="http://blog.sanctum.geek.nz/zooming-tmux-panes/">http://blog.sanctum.geek.nz/zooming-tmux-panes/</a></em></p>
+
+<p><em>added 2011-11-09</em></p>
+
+<hr />
+
+<h2 id="working-with-windows">working with windows</h2>
+
+<p><strong>create a new window</strong></p>
+
+<p><code>tmux new-window (prefix + c)</code></p>
+
+<p><strong>move to the window based on index</strong></p>
+
+<p><code>tmux select-window -t :0-9 (prefix + 0-9)</code></p>
+
+<p><strong>rename the current window</strong></p>
+
+<p><code>tmux rename-window (prefix + ,)</code></p>
+
+<p><em>via <a href="http://robots.thoughtbot.com/a-tmux-crash-course">http://robots.thoughtbot.com/a-tmux-crash-course</a></em></p>
+
+<p><em>added 2011-11-09</em></p>
+
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
   </article>
