@@ -1,0 +1,439 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS &#8211; solarce.org</title>
+<meta name="description" content="">
+<meta name="keywords" content="zookeeper, exhibitor, kafka, coreos, docker">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS">
+<meta name="twitter:description" content="">
+<meta name="twitter:site" content="@solarce">
+<meta name="twitter:creator" content="@solarce">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://solarce.org/images/">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS">
+<meta property="og:description" content="">
+<meta property="og:url" content="http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/">
+<meta property="og:site_name" content="solarce.org">
+
+
+
+
+
+<link rel="canonical" href="http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/">
+<link href="http://solarce.org/feed.xml" type="application/atom+xml" rel="alternate" title="solarce.org Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://solarce.org/assets/css/main.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+  <script src="http://solarce.org/assets/js/vendor/html5shiv.min.js"></script>
+  <script src="http://solarce.org/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="http://solarce.org/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://solarce.org/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://solarce.org/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://solarce.org/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://solarce.org/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://solarce.org/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://solarce.org/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+  <nav role="navigation" id="site-nav" class="animated drop">
+      <ul>
+      
+        
+            
+        
+        <li><a href="http://solarce.org/" >home</a></li>
+      
+        
+            
+        
+        <li><a href="http://solarce.org/about/" >about</a></li>
+      
+        
+            
+        
+        <li><a href="http://solarce.org/writing/" >writing</a></li>
+      
+        
+            
+        
+        <li><a href="http://solarce.org/tips/" >tips</a></li>
+      
+        <li class="dosearch"><span><i class="fa fa-search"></i> Search</span></li>
+      </ul>
+  </nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<header class="masthead">
+	<div class="wrap">
+    <div class="social-icons">
+      <a href="http://twitter.com/solarce" title="Brandon Burton on Twitter" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>
+      
+      
+      <a href="http://linkedin.com/in/solarce" title="Brandon Burton on LinkedIn" target="_blank"><i class="fa fa-linkedin-square fa-2x"></i></a>
+      <a href="solarce" title="Brandon Burton on StackExchange" target="_blank"><i class="fa fa-stack-exchange fa-2x"></i></a>
+      <a href="http://instagram.com/solarce" title="Brandon Burton on Instagram" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+      
+      <a href="http://github.com/solarce" title="Brandon Burton on Github" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+      
+      <a href="http://solarce.org/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss-square fa-2x"></i></a>
+    </div><!-- /.social-icons -->
+    <h1 class="site-title animated fadeIn">
+      season's gif-ings
+    </h1>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="http://solarce.org/tags/#zookeeper" title="Pages tagged zookeeper">zookeeper</a>&nbsp;&bull;&nbsp;<a href="http://solarce.org/tags/#exhibitor" title="Pages tagged exhibitor">exhibitor</a>&nbsp;&bull;&nbsp;<a href="http://solarce.org/tags/#kafka" title="Pages tagged kafka">kafka</a>&nbsp;&bull;&nbsp;<a href="http://solarce.org/tags/#coreos" title="Pages tagged coreos">coreos</a>&nbsp;&bull;&nbsp;<a href="http://solarce.org/tags/#docker" title="Pages tagged docker">docker</a></span>
+        
+          <h1 class="entry-title">Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        
+        
+        
+          <img src="http://solarce.org/images/bb_profile.jpeg" class="bio-photo" alt="Brandon Burton bio photo"></a>
+        
+        <span class="author vcard">By <span class="fn">Brandon Burton</span></span>
+        <span class="entry-date date published"><time datetime="2014-11-25T00:00:00-08:00"><i class="icon-calendar-empty"></i> November 25, 2014</time></span>
+        
+        
+        
+        <span class="social-share-twitter">
+          <a href="https://twitter.com/intent/tweet?hashtags=zookeeper,exhibitor,kafka,coreos,docker&text=Experimenting%20with%20Exhibitor/Zookeeper%20and%20Kafka%20on%20CoreOS&url=http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/&via=solarce" title="Share on Twitter" itemprop="Twitter"><i class="fa fa-twitter-square"></i> Tweet</a>
+        </span>
+        <span class="social-share-facebook">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/" title="Share on Facebook" itemprop="Facebook"><i class="fa fa-facebook-square"></i> Like</a>
+        </span>
+        <span class="social-share-googleplus">
+          <a href="https://plus.google.com/share?url=http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/" title="Share on Google Plus" itemprop="GooglePlus"><i class="fa fa-google-plus-square"></i> +1</a>
+        </span>
+        <!-- /.social-share -->
+        
+        <div class="google-ads" style="margin-top:40px; text-align:center;">
+  <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- 160x600 ad -->
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:160px;height:600px"
+       data-ad-client=""
+       data-ad-slot=""></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div><!-- /.google-ads --><!-- /.google-ads -->
+      </footer>
+      <div class="entry-content">
+        <h1 id="experimenting-with-coreos-zookeeper-exhibitor-and-kafka-for-hacksgiving-2014">Experimenting with CoreOS, Zookeeper, Exhibitor, and Kafka for Hacksgiving 2014</h1>
+
+<p>As part of <a href="http://hacksgiving.com/2012/11/what-is-hacksgiving/">Hacksgiving 2014</a> at <a href="https://www.lookout.com">Lookout</a> I experimented with seeing how hard it would be to get <strong>Zookeeper</strong> and <strong>Kafka</strong> working directly on <a href="https://coreos.com">CoreOS</a>.</p>
+
+<h2 id="deploying-coreos">Deploying CoreOS</h2>
+
+<p>Deploying CoreOS was pretty easy. I opted to deploy the latest stable release and use their <a href="https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-hvm.template">CloudFormation</a> template as a starting place.</p>
+
+<p>I customized it a bit to support being inside our VPC and just use our default security groups.</p>
+
+<p>First I got a new <a href="https://coreos.com/docs/cluster-management/setup/cluster-discovery/">discovery token for etcd</a>, with <code>curl https://discovery.etcd.io/new</code> and then I filled in the other parameters in the CloudFormation template I made. I’ve put <a href="https://github.com/solarce/coreos_zk_kafka_notes/blob/master/coreos_cfn_template.json">an example template on Github</a>.</p>
+
+<p>Then I just used the <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new">CloudFormation GUI</a> in the AWS Console to launch a stack with my template. This built an <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/WhatIsAutoScaling.html">Auto-Scaling Group</a> and then launched three EC2 instances for me.</p>
+
+<p>Once all the instances were launched and I confirmed I could SSH into them, I added DNS records for them.</p>
+
+<h2 id="getting-zookeeper-working">Getting Zookeeper working</h2>
+
+<p>Launching services on CoreOS is pretty easy to get going, as it uses <a href="https://docker.io/">Docker</a> containers to <em>package</em> the services and <a href="https://coreos.com/docs/launching-containers/launching/fleet-unit-files/">unit files</a> to define how a service should be run. But because CoreOS is designed to run more ephemeral workloads, it’s kind of a challenge to run something like <a href="https://zookeeper.apache.org">Zookeeper</a> by itself. Luckily the folks at Netflix released <a href="https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor">Exhibitor</a> to tackle this kind of challenge and uses S3 to share a config file for the Zookeeper cluster. So I made an S3 bucket that the IAM credentials I was going to use could write to.</p>
+
+<p>Then I found a docker image that <a href="https://github.com/thefactory/docker-zk-exhibitor">packaged exhibitor and zookeeper together</a> and I wrote a unit file to launch it. I then launched this with <a href="https://coreos.com/docs/launching-containers/launching/launching-containers-fleet/">fleetctl</a>, which is the tool CoreOS built on top of <a href="http://www.freedesktop.org/software/systemd/">systemd</a> to manage launching services across a CoreOS cluster.</p>
+
+<p>The unit file looked like:</p>
+
+<pre><code>[Unit]
+Description=ex-zk1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill ex-zk1
+ExecStartPre=-/usr/bin/docker rm ex-zk1
+ExecStartPre=/usr/bin/docker pull thefactory/zookeeper-exhibitor:latest
+ExecStart=/usr/bin/docker run --name ez-zk1 \
+                          -p 8181:8181 \
+                          -p 2181:2181 \
+                          -p 2888:2888 \
+                          -p 3888:3888 \
+                          -e S3_BUCKET=&lt;BUCKET_NAME&gt; \
+                          -e S3_PREFIX=&lt;KEY_NAME&gt; \
+                          -e AWS_ACCESS_KEY_ID=&lt;ACCESS_KEY&gt; \
+                          -e AWS_SECRET_ACCESS_KEY=&lt;SECRET_KEY&gt; \
+                          -e HOSTNAME=ez-zk1 \
+                          thefactory/zookeeper-exhibitor:latest
+ExecStop=/usr/bin/docker stop ex-zk1
+</code></pre>
+
+<h3 id="a-single-zookeeper">A single zookeeper!</h3>
+
+<p>I got a single node up and running pretty easily with the following commands:</p>
+
+<ol>
+  <li><code>fleetctl submit ex-zk1.service</code></li>
+  <li><code>fleetctl start ex-zk1</code></li>
+  <li><code>fleetctl status ex-zk1</code></li>
+</ol>
+
+<p>I was then able to view the Exhibitor UI.</p>
+
+<h3 id="a-cluster-of-zookeepers">A cluster of zookeepers!</h3>
+
+<p>A single zookeeper was easy, but when I launched three of them with the first iteration of my unit file, I found that each zookeeper instance would stick in standalone mode, despite them all being able to write to my S3 bucket.</p>
+
+<p>After some troubleshooting I realized this was because the hostname I was giving to each container was not resolvable by the other containers, so the zookeeper services couldn’t actually communicate and perform leader/follower elections. Since docker is binding the ports of each container to the IP of the CoreOS hosts, I found that if I told each container it had the hostname of it’s CoreOS host, then election occured and Exhibitor was able to get all three members in sync and happy.</p>
+
+<p>So the unit files then looked like:</p>
+
+<pre><code>[Unit]
+Description=ex-zk1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill ex-zk1
+ExecStartPre=-/usr/bin/docker rm ex-zk1
+ExecStartPre=/usr/bin/docker pull thefactory/zookeeper-exhibitor:latest
+ExecStart=/usr/bin/docker run --name ez-zk1 \
+                          -p 8181:8181 \
+                          -p 2181:2181 \
+                          -p 2888:2888 \
+                          -p 3888:3888 \
+                          -e S3_BUCKET=&lt;BUCKET_NAME&gt; \
+                          -e S3_PREFIX=&lt;KEY_NAME&gt; \
+                          -e AWS_ACCESS_KEY_ID=&lt;ACCESS_KEY&gt; \
+                          -e AWS_SECRET_ACCESS_KEY=&lt;SECRET_KEY&gt; \
+                          -e HOSTNAME=&lt;DNS_NAME_OF_COREOS_HOST&gt; \
+                          thefactory/zookeeper-exhibitor:latest
+ExecStop=/usr/bin/docker stop ex-zk1
+</code></pre>
+
+<p>To deploy two more nodes I just copied the <code>ex-zk1.service</code> file and tweaked the names and <code>HOSTNAME</code> to match where fleetctl would distribute the containers. I then launched <code>ex-zk2</code> and <code>ex-zk3</code> and had a three node cluster running.</p>
+
+<p>Obviously this isn’t ideal and support for more complex networking on CoreOS would be needed for a more production-like deployment, but for the purposes of this Hacksgiving it got what I wanted.</p>
+
+<h2 id="getting-kafka-working">Getting Kafka working</h2>
+
+<p>The end goal of my experimenting was a working three node Kafka cluster, but most of the work was getting Zookeeper working, because Kafka uses Zookeeper for its cluster discovery and leader election. So like with zookeeper, I found a docker image that looked good and made a unit file for it, like the one shown below:</p>
+
+<pre><code>[Unit]
+Description=kafka1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill kafka1
+ExecStartPre=-/usr/bin/docker rm kafka1
+ExecStartPre=/usr/bin/docker pull wurstmeister/kafka:0.8.1.1-1
+ExecStart=/usr/bin/docker run --name kafka1 \
+                          -p 6667:6667 \
+                          -e KAFKA_ADVERTISED_PORT=6667 \
+                          -e KAFKA_ZOOKEEPER_CONNECT=10.1.1.10:2181,10.1.1.12:2181,10.2.1.15:2181 \
+                          -e KAFKA_BROKER_ID=100 \
+                          wurstmeister/kafka:0.8.1.1-1
+ExecStop=/usr/bin/docker stop kafka1
+</code></pre>
+
+<p>The main downside to the above unit file is that I’m hardcoding my zookeeper configs based on the IPs of the CoreOS hosts, ideally we’d tap into <a href="https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/">etcd</a> or something to manage this more dynamically.</p>
+
+<p>Once I started one instance and confirmed it was up with <code>fleetctl</code> I launched two more and confirmed they all joined the cluster by checking the contents of <code>/brokers/ids</code> in zookeeper. Then I tested making a topic with three <a href="https://confluence.corp.lookout.com/display/eng/Kafka#Kafka-Partitions">topic partitions</a> and a <a href="https://confluence.corp.lookout.com/display/eng/Kafka#Kafka-ReplicationFactor">replication factor</a> of three. This would confirm that the cluster was truly working as expected.</p>
+
+<pre><code>bburton@althalus ~ # kafka-topics.sh --create --zookeeper coreos-1 --replication-factor 3 --partitions 3 --topic bburton.test3
+Created topic "bburton.test3".
+bburton@althalus ~ # kafka-topics.sh --describe --zookeeper lookout-coreos-hacksgiving1.flexilis.org
+Topic:bburton.test3     PartitionCount:3        ReplicationFactor:3     Configs:
+        Topic: bburton.test3    Partition: 0    Leader: 300     Replicas: 300,200,100   Isr: 300,200,100
+        Topic: bburton.test3    Partition: 1    Leader: 100     Replicas: 100,300,200   Isr: 100,300,200
+        Topic: bburton.test3    Partition: 2    Leader: 200     Replicas: 200,100,300   Isr: 200,100,300
+</code></pre>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>That’s pretty much it for what I did during the hackathon!</p>
+
+<p>I put up <a href="https://github.com/solarce/coreos_zk_kafka_notes">samples of my unit files and the cloudformation template on Github as</a> well.</p>
+
+<h2 id="ps-taking-it-further">PS. Taking it further</h2>
+
+<p>Some thoughts on how we could take it further. We’d need to figure out things like:</p>
+
+<p><strong>Durable Storage</strong></p>
+
+<ul>
+  <li>The <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/WorkingWithLaunchConfig.html">Launch Configuration</a> I used didn’t mount the ephemeral drives of each instance, nor did it add any EBS volumes. Additionally, the unit files I made don’t use any <a href="https://docs.docker.com/userguide/dockervolumes/">docker volume mounts</a> to let container data persist when instances are recreated.</li>
+</ul>
+
+<p><strong>Complex Networking</strong></p>
+
+<ul>
+  <li>Because of how the unit files are wrote are doing <a href="https://docs.docker.com/userguide/dockerlinks/">docker port binding</a> we can only support one kind of service port CoreOS host. Figuring out more complex networking would allow us to support multiple services in different in clusters on the same CoreOS hosts.</li>
+</ul>
+
+<p><strong>Unit File Management</strong></p>
+
+<ul>
+  <li>More research into best practices for versioning and deploying unit files is needed.</li>
+</ul>
+
+<p><strong>Thinking in a docker world</strong></p>
+
+<ul>
+  <li>Using CoreOS brings docker and many things have to be rethought when in a docker world, such as
+    <ul>
+      <li>SSH</li>
+      <li>Logging</li>
+      <li>Storage Persistance</li>
+      <li>Etc</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Docker Image Hosting</strong></p>
+
+<ul>
+  <li>Would we want to run a private registry to build and host our own docker containers?</li>
+</ul>
+
+<p><strong>Monitoring of CoreOS and Containers</strong></p>
+
+<ul>
+  <li>How do we best monitor CoreOS and the containers we run on it?</li>
+</ul>
+
+<p><strong>Where does Chef fit in?</strong></p>
+
+<ul>
+  <li>Building containers from Chef (and something like <a href="https://packer.io">Packer</a>?)</li>
+  <li>Deploying CoreOS with something like <a href="https://github.com/opscode/chef-provisioning">chef-provisioning</a>?</li>
+</ul>
+
+        <nav class="pagination" role="navigation">
+          
+            <a href="http://solarce.org/writing/technologists-prayer/" class="btn" title="The technologist's prayer">Previous article</a>
+          
+          
+        </nav><!-- /.pagination -->
+        
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    
+
+<span>&copy; 2014 Brandon Burton. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://solarce.org/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://solarce.org/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : 'http://solarce.org/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".close-btn"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+
+
+  
+	        
+
+</body>
+</html>

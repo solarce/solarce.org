@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS",
+		  "category"   : "",
+		  "url"        : "http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/",
+		  "date"       : "2014-11-25 00:00:00 -0800",
+		  "shortdate"  : "November 25, 2014"
+		} ,
+	
+		{
 		  "title"      : "The technologist&#39;s prayer",
 		  "category"   : "",
 		  "url"        : "http://solarce.org/writing/technologists-prayer/",

@@ -4,13 +4,229 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-11-13T11:58:47-08:00</updated>
+<updated>2014-11-25T19:40:40-08:00</updated>
 <id>/</id>
 <author>
   <name>Brandon Burton</name>
   <uri>/</uri>
   <email>brandon@inatree.org</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS]]></title>
+  <link rel="alternate" type="text/html" href="/writing/experiments-with-zookeeper-kafka-coreos/"/>
+  <id>/writing/experiments-with-zookeeper-kafka-coreos</id>
+  <published>2014-11-25T00:00:00-08:00</published>
+  <updated>2014-11-25T00:00:00-08:00</updated>
+  <author>
+    <name>Brandon Burton</name>
+    <uri></uri>
+    <email>brandon@inatree.org</email>
+  </author>
+  <category scheme="/tags/#zookeeper" term="zookeeper" /><category scheme="/tags/#exhibitor" term="exhibitor" /><category scheme="/tags/#kafka" term="kafka" /><category scheme="/tags/#coreos" term="coreos" /><category scheme="/tags/#docker" term="docker" />
+  <content type="html">
+    &lt;h1 id=&quot;experimenting-with-coreos-zookeeper-exhibitor-and-kafka-for-hacksgiving-2014&quot;&gt;Experimenting with CoreOS, Zookeeper, Exhibitor, and Kafka for Hacksgiving 2014&lt;/h1&gt;
+
+&lt;p&gt;As part of &lt;a href=&quot;http://hacksgiving.com/2012/11/what-is-hacksgiving/&quot;&gt;Hacksgiving 2014&lt;/a&gt; at &lt;a href=&quot;https://www.lookout.com&quot;&gt;Lookout&lt;/a&gt; I experimented with seeing how hard it would be to get &lt;strong&gt;Zookeeper&lt;/strong&gt; and &lt;strong&gt;Kafka&lt;/strong&gt; working directly on &lt;a href=&quot;https://coreos.com&quot;&gt;CoreOS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;deploying-coreos&quot;&gt;Deploying CoreOS&lt;/h2&gt;
+
+&lt;p&gt;Deploying CoreOS was pretty easy. I opted to deploy the latest stable release and use their &lt;a href=&quot;https://s3.amazonaws.com/coreos.com/dist/aws/coreos-stable-hvm.template&quot;&gt;CloudFormation&lt;/a&gt; template as a starting place.&lt;/p&gt;
+
+&lt;p&gt;I customized it a bit to support being inside our VPC and just use our default security groups.&lt;/p&gt;
+
+&lt;p&gt;First I got a new &lt;a href=&quot;https://coreos.com/docs/cluster-management/setup/cluster-discovery/&quot;&gt;discovery token for etcd&lt;/a&gt;, with &lt;code&gt;curl https://discovery.etcd.io/new&lt;/code&gt; and then I filled in the other parameters in the CloudFormation template I made. I’ve put &lt;a href=&quot;https://github.com/solarce/coreos_zk_kafka_notes/blob/master/coreos_cfn_template.json&quot;&gt;an example template on Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then I just used the &lt;a href=&quot;https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new&quot;&gt;CloudFormation GUI&lt;/a&gt; in the AWS Console to launch a stack with my template. This built an &lt;a href=&quot;http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/WhatIsAutoScaling.html&quot;&gt;Auto-Scaling Group&lt;/a&gt; and then launched three EC2 instances for me.&lt;/p&gt;
+
+&lt;p&gt;Once all the instances were launched and I confirmed I could SSH into them, I added DNS records for them.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-zookeeper-working&quot;&gt;Getting Zookeeper working&lt;/h2&gt;
+
+&lt;p&gt;Launching services on CoreOS is pretty easy to get going, as it uses &lt;a href=&quot;https://docker.io/&quot;&gt;Docker&lt;/a&gt; containers to &lt;em&gt;package&lt;/em&gt; the services and &lt;a href=&quot;https://coreos.com/docs/launching-containers/launching/fleet-unit-files/&quot;&gt;unit files&lt;/a&gt; to define how a service should be run. But because CoreOS is designed to run more ephemeral workloads, it’s kind of a challenge to run something like &lt;a href=&quot;https://zookeeper.apache.org&quot;&gt;Zookeeper&lt;/a&gt; by itself. Luckily the folks at Netflix released &lt;a href=&quot;https://github.com/Netflix/exhibitor/wiki/Running-Exhibitor&quot;&gt;Exhibitor&lt;/a&gt; to tackle this kind of challenge and uses S3 to share a config file for the Zookeeper cluster. So I made an S3 bucket that the IAM credentials I was going to use could write to.&lt;/p&gt;
+
+&lt;p&gt;Then I found a docker image that &lt;a href=&quot;https://github.com/thefactory/docker-zk-exhibitor&quot;&gt;packaged exhibitor and zookeeper together&lt;/a&gt; and I wrote a unit file to launch it. I then launched this with &lt;a href=&quot;https://coreos.com/docs/launching-containers/launching/launching-containers-fleet/&quot;&gt;fleetctl&lt;/a&gt;, which is the tool CoreOS built on top of &lt;a href=&quot;http://www.freedesktop.org/software/systemd/&quot;&gt;systemd&lt;/a&gt; to manage launching services across a CoreOS cluster.&lt;/p&gt;
+
+&lt;p&gt;The unit file looked like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=ex-zk1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill ex-zk1
+ExecStartPre=-/usr/bin/docker rm ex-zk1
+ExecStartPre=/usr/bin/docker pull thefactory/zookeeper-exhibitor:latest
+ExecStart=/usr/bin/docker run --name ez-zk1 \
+                          -p 8181:8181 \
+                          -p 2181:2181 \
+                          -p 2888:2888 \
+                          -p 3888:3888 \
+                          -e S3_BUCKET=&amp;lt;BUCKET_NAME&amp;gt; \
+                          -e S3_PREFIX=&amp;lt;KEY_NAME&amp;gt; \
+                          -e AWS_ACCESS_KEY_ID=&amp;lt;ACCESS_KEY&amp;gt; \
+                          -e AWS_SECRET_ACCESS_KEY=&amp;lt;SECRET_KEY&amp;gt; \
+                          -e HOSTNAME=ez-zk1 \
+                          thefactory/zookeeper-exhibitor:latest
+ExecStop=/usr/bin/docker stop ex-zk1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;a-single-zookeeper&quot;&gt;A single zookeeper!&lt;/h3&gt;
+
+&lt;p&gt;I got a single node up and running pretty easily with the following commands:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code&gt;fleetctl submit ex-zk1.service&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;fleetctl start ex-zk1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;fleetctl status ex-zk1&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I was then able to view the Exhibitor UI.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-cluster-of-zookeepers&quot;&gt;A cluster of zookeepers!&lt;/h3&gt;
+
+&lt;p&gt;A single zookeeper was easy, but when I launched three of them with the first iteration of my unit file, I found that each zookeeper instance would stick in standalone mode, despite them all being able to write to my S3 bucket.&lt;/p&gt;
+
+&lt;p&gt;After some troubleshooting I realized this was because the hostname I was giving to each container was not resolvable by the other containers, so the zookeeper services couldn’t actually communicate and perform leader/follower elections. Since docker is binding the ports of each container to the IP of the CoreOS hosts, I found that if I told each container it had the hostname of it’s CoreOS host, then election occured and Exhibitor was able to get all three members in sync and happy.&lt;/p&gt;
+
+&lt;p&gt;So the unit files then looked like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=ex-zk1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill ex-zk1
+ExecStartPre=-/usr/bin/docker rm ex-zk1
+ExecStartPre=/usr/bin/docker pull thefactory/zookeeper-exhibitor:latest
+ExecStart=/usr/bin/docker run --name ez-zk1 \
+                          -p 8181:8181 \
+                          -p 2181:2181 \
+                          -p 2888:2888 \
+                          -p 3888:3888 \
+                          -e S3_BUCKET=&amp;lt;BUCKET_NAME&amp;gt; \
+                          -e S3_PREFIX=&amp;lt;KEY_NAME&amp;gt; \
+                          -e AWS_ACCESS_KEY_ID=&amp;lt;ACCESS_KEY&amp;gt; \
+                          -e AWS_SECRET_ACCESS_KEY=&amp;lt;SECRET_KEY&amp;gt; \
+                          -e HOSTNAME=&amp;lt;DNS_NAME_OF_COREOS_HOST&amp;gt; \
+                          thefactory/zookeeper-exhibitor:latest
+ExecStop=/usr/bin/docker stop ex-zk1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To deploy two more nodes I just copied the &lt;code&gt;ex-zk1.service&lt;/code&gt; file and tweaked the names and &lt;code&gt;HOSTNAME&lt;/code&gt; to match where fleetctl would distribute the containers. I then launched &lt;code&gt;ex-zk2&lt;/code&gt; and &lt;code&gt;ex-zk3&lt;/code&gt; and had a three node cluster running.&lt;/p&gt;
+
+&lt;p&gt;Obviously this isn’t ideal and support for more complex networking on CoreOS would be needed for a more production-like deployment, but for the purposes of this Hacksgiving it got what I wanted.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-kafka-working&quot;&gt;Getting Kafka working&lt;/h2&gt;
+
+&lt;p&gt;The end goal of my experimenting was a working three node Kafka cluster, but most of the work was getting Zookeeper working, because Kafka uses Zookeeper for its cluster discovery and leader election. So like with zookeeper, I found a docker image that looked good and made a unit file for it, like the one shown below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=kafka1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=Simple
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill kafka1
+ExecStartPre=-/usr/bin/docker rm kafka1
+ExecStartPre=/usr/bin/docker pull wurstmeister/kafka:0.8.1.1-1
+ExecStart=/usr/bin/docker run --name kafka1 \
+                          -p 6667:6667 \
+                          -e KAFKA_ADVERTISED_PORT=6667 \
+                          -e KAFKA_ZOOKEEPER_CONNECT=10.1.1.10:2181,10.1.1.12:2181,10.2.1.15:2181 \
+                          -e KAFKA_BROKER_ID=100 \
+                          wurstmeister/kafka:0.8.1.1-1
+ExecStop=/usr/bin/docker stop kafka1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The main downside to the above unit file is that I’m hardcoding my zookeeper configs based on the IPs of the CoreOS hosts, ideally we’d tap into &lt;a href=&quot;https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/&quot;&gt;etcd&lt;/a&gt; or something to manage this more dynamically.&lt;/p&gt;
+
+&lt;p&gt;Once I started one instance and confirmed it was up with &lt;code&gt;fleetctl&lt;/code&gt; I launched two more and confirmed they all joined the cluster by checking the contents of &lt;code&gt;/brokers/ids&lt;/code&gt; in zookeeper. Then I tested making a topic with three &lt;a href=&quot;https://confluence.corp.lookout.com/display/eng/Kafka#Kafka-Partitions&quot;&gt;topic partitions&lt;/a&gt; and a &lt;a href=&quot;https://confluence.corp.lookout.com/display/eng/Kafka#Kafka-ReplicationFactor&quot;&gt;replication factor&lt;/a&gt; of three. This would confirm that the cluster was truly working as expected.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bburton@althalus ~ # kafka-topics.sh --create --zookeeper coreos-1 --replication-factor 3 --partitions 3 --topic bburton.test3
+Created topic &quot;bburton.test3&quot;.
+bburton@althalus ~ # kafka-topics.sh --describe --zookeeper lookout-coreos-hacksgiving1.flexilis.org
+Topic:bburton.test3     PartitionCount:3        ReplicationFactor:3     Configs:
+        Topic: bburton.test3    Partition: 0    Leader: 300     Replicas: 300,200,100   Isr: 300,200,100
+        Topic: bburton.test3    Partition: 1    Leader: 100     Replicas: 100,300,200   Isr: 100,300,200
+        Topic: bburton.test3    Partition: 2    Leader: 200     Replicas: 200,100,300   Isr: 200,100,300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;That’s pretty much it for what I did during the hackathon!&lt;/p&gt;
+
+&lt;p&gt;I put up &lt;a href=&quot;https://github.com/solarce/coreos_zk_kafka_notes&quot;&gt;samples of my unit files and the cloudformation template on Github as&lt;/a&gt; well.&lt;/p&gt;
+
+&lt;h2 id=&quot;ps-taking-it-further&quot;&gt;PS. Taking it further&lt;/h2&gt;
+
+&lt;p&gt;Some thoughts on how we could take it further. We’d need to figure out things like:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Durable Storage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The &lt;a href=&quot;http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/WorkingWithLaunchConfig.html&quot;&gt;Launch Configuration&lt;/a&gt; I used didn’t mount the ephemeral drives of each instance, nor did it add any EBS volumes. Additionally, the unit files I made don’t use any &lt;a href=&quot;https://docs.docker.com/userguide/dockervolumes/&quot;&gt;docker volume mounts&lt;/a&gt; to let container data persist when instances are recreated.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Complex Networking&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Because of how the unit files are wrote are doing &lt;a href=&quot;https://docs.docker.com/userguide/dockerlinks/&quot;&gt;docker port binding&lt;/a&gt; we can only support one kind of service port CoreOS host. Figuring out more complex networking would allow us to support multiple services in different in clusters on the same CoreOS hosts.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Unit File Management&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;More research into best practices for versioning and deploying unit files is needed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Thinking in a docker world&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Using CoreOS brings docker and many things have to be rethought when in a docker world, such as
+    &lt;ul&gt;
+      &lt;li&gt;SSH&lt;/li&gt;
+      &lt;li&gt;Logging&lt;/li&gt;
+      &lt;li&gt;Storage Persistance&lt;/li&gt;
+      &lt;li&gt;Etc&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Docker Image Hosting&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Would we want to run a private registry to build and host our own docker containers?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Monitoring of CoreOS and Containers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How do we best monitor CoreOS and the containers we run on it?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Where does Chef fit in?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Building containers from Chef (and something like &lt;a href=&quot;https://packer.io&quot;&gt;Packer&lt;/a&gt;?)&lt;/li&gt;
+  &lt;li&gt;Deploying CoreOS with something like &lt;a href=&quot;https://github.com/opscode/chef-provisioning&quot;&gt;chef-provisioning&lt;/a&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/writing/experiments-with-zookeeper-kafka-coreos/&quot;&gt;Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on November 25, 2014.&lt;/p&gt;
+  </content>
+</entry>
 
 
 <entry>
