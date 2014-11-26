@@ -18,7 +18,7 @@ This command is bound to `<prefix> z` by default
 
 _via [http://blog.sanctum.geek.nz/zooming-tmux-panes/](http://blog.sanctum.geek.nz/zooming-tmux-panes/)_
 
-_added 2011-11-09_
+_added 2014-11-09_
 
 ---
 
@@ -40,4 +40,4 @@ _added 2011-11-09_
 
 _via [http://robots.thoughtbot.com/a-tmux-crash-course](http://robots.thoughtbot.com/a-tmux-crash-course)_
 
-_added 2011-11-09_
+_added 2014-11-09_

@@ -5,15 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>tips and tricks &#8211; solarce.org</title>
-<meta name="description" content="tips and tricks I've collected along the way">
+<title>tmux tricks &#8211; solarce.org</title>
+<meta name="description" content="tmux tips">
 
 
 
 
 <!-- Twitter Cards -->
-<meta name="twitter:title" content="tips and tricks">
-<meta name="twitter:description" content="tips and tricks I've collected along the way">
+<meta name="twitter:title" content="tmux tricks">
+<meta name="twitter:description" content="tmux tips">
 <meta name="twitter:site" content="@solarce">
 <meta name="twitter:creator" content="@solarce">
 
@@ -23,16 +23,16 @@
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tips and tricks">
-<meta property="og:description" content="tips and tricks I've collected along the way">
-<meta property="og:url" content="http://solarce.org/tips/">
+<meta property="og:title" content="tmux tricks">
+<meta property="og:description" content="tmux tips">
+<meta property="og:url" content="http://solarce.org/tips/git.html">
 <meta property="og:site_name" content="solarce.org">
 
 
 
 
 
-<link rel="canonical" href="http://solarce.org/tips/">
+<link rel="canonical" href="http://solarce.org/tips/git.html">
 <link href="http://solarce.org/feed.xml" type="application/atom+xml" rel="alternate" title="solarce.org Feed">
 
 
@@ -132,17 +132,73 @@
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <h1 class="entry-title">tips and tricks</h1>
+        <h1 class="entry-title">tmux tricks</h1>
       </header>
       <div class="entry-content">
-        <h2 id="tips-and-tricks-ive-collected-along-the-way">tips and tricks I’ve collected along the way</h2>
+        <h2 id="nicer-imo-git-log">nicer (imo) git log</h2>
 
-<ul>
-  <li><a href="/tips/zsh.html">zsh</a></li>
-  <li><a href="/tips/tmux.html">tmux</a></li>
-  <li><a href="/tips/arch.html">arch</a></li>
-  <li><a href="/tips/git.html">git</a></li>
-</ul>
+<p>A nicer look for git log</p>
+
+<p>First run <code>git config --global alias.l "log --graph --decorate --all --max-count 5 --name-status"</code></p>
+
+<p>Then run <code>git l</code></p>
+
+<p>It should look something like</p>
+
+<p><code>
+* commit 7110cbba9dad7fffbf3bdf137d39f09fec277f16 (HEAD, tag: v1.0.5, origin/master, origin/HEAD, master)
+| Author: Brandon Burton &lt;brandon@inatree.org&gt;
+| Date:   Mon Oct 27 14:42:19 2014 -0700
+|
+|     version 1.0.5
+|
+|     - This is a pretty substantial rewrite of this cookbook
+|     - It now uses
+|     [YAMLConfig](ttps://github.com/jmxtrans/jmxtrans/wiki/YAMLConfig) for
+|     config generations.
+|     - You should review the README and see
+|     ttps://github.com/solarce/jmxtrans-wrapper
+|
+| M     Berksfile.lock
+| A     CHANGELOG.md
+| M     README.md
+| D     Rakefile
+| M     attributes/default.rb
+| A     files/default/templates_yaml/example_yaml_template.yaml.erb.sample
+| A     libraries/config_render.rb
+| M     metadata.rb
+| A     recipes/config_render.rb
+| D     recipes/default.rb
+| A     recipes/install.rb
+| A     recipes/service.rb
+| M     templates/default/jmxtrans.upstart.conf.erb
+| D     templates/default/jmxtrans_config.json.erb
+| M     templates/default/jmxtrans_default.erb
+| D     test/.chef/knife.rb
+| D     test/support/Gemfile
+| D     test/support/Gemfile.lock
+|
+* commit 3866e7cdc535e757d153d48d40ced1a03f53c734
+| Author: Brandon Burton &lt;brandon@inatree.org&gt;
+| Date:   Fri Oct 10 08:28:16 2014 -0700
+|
+|     adding .gitignore
+|
+| A     .gitignore
+|
+* commit 0db90a064a1eb03181868ab084f0c6f8588bbf9a (tag: v0.0.5)
+| Author: Brandon Burton &lt;brandon@inatree.org&gt;
+| Date:   Fri Sep 26 23:20:37 2014 -0700
+|
+|     moar fixes
+|
+| M     Berksfile.lock
+</code></p>
+
+<p><em>added 2014-11-03</em></p>
+
+<hr />
+
 
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->

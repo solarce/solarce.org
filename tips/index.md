@@ -10,3 +10,4 @@ modified: 2014-11-09
 * [zsh](/tips/zsh.html)
 * [tmux](/tips/tmux.html)
 * [arch](/tips/arch.html)
+* [git](/tips/git.html)
