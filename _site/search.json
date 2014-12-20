@@ -1,6 +1,22 @@
 [
 	
 		{
+		  "title"      : "tmux.conf",
+		  "category"   : "",
+		  "url"        : "http://solarce.org/writing/tmux-conf/",
+		  "date"       : "2014-12-20 00:00:00 -0800",
+		  "shortdate"  : "December 20, 2014"
+		} ,
+	
+		{
+		  "title"      : "Helping with knife-block",
+		  "category"   : "",
+		  "url"        : "http://solarce.org/writing/helping-with-knife-block/",
+		  "date"       : "2014-12-10 00:00:00 -0800",
+		  "shortdate"  : "December 10, 2014"
+		} ,
+	
+		{
 		  "title"      : "Experimenting with Exhibitor/Zookeeper and Kafka on CoreOS",
 		  "category"   : "",
 		  "url"        : "http://solarce.org/writing/experiments-with-zookeeper-kafka-coreos/",

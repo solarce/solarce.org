@@ -4,13 +4,67 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-11-25T19:40:40-08:00</updated>
+<updated>2014-12-20T07:49:59-08:00</updated>
 <id>/</id>
 <author>
   <name>Brandon Burton</name>
   <uri>/</uri>
   <email>brandon@inatree.org</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[tmux.conf]]></title>
+  <link rel="alternate" type="text/html" href="/writing/tmux-conf/"/>
+  <id>/writing/tmux-conf</id>
+  <published>2014-12-20T00:00:00-08:00</published>
+  <updated>2014-12-20T00:00:00-08:00</updated>
+  <author>
+    <name>Brandon Burton</name>
+    <uri></uri>
+    <email>brandon@inatree.org</email>
+  </author>
+  <category scheme="/tags/#chef" term="chef" /><category scheme="/tags/#knife" term="knife" /><category scheme="/tags/#knife-block" term="knife-block" />
+  <content type="html">
+    &lt;h1 id=&quot;tmuxconf&quot;&gt;tmux.conf&lt;/h1&gt;
+
+&lt;p&gt;I spent a while this morning putting together a new &lt;a href=&quot;https://github.com/solarce/dotfiles/blob/master/tmux.conf&quot;&gt;tmux.conf&lt;/a&gt; and I’ve added it to my &lt;a href=&quot;https://github.com/solarce/dotfiles&quot;&gt;dotfiles repository&lt;/a&gt; on Github.&lt;/p&gt;
+
+&lt;p&gt;I’m gonna try to re-organize my &lt;a href=&quot;http://www.solarce.org/tips/tmux.html&quot;&gt;tmux tips&lt;/a&gt; page around it here soon.&lt;/p&gt;
+
+&lt;p&gt;Let me know what you think on &lt;a href=&quot;https://twitter.com/solarce&quot;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/writing/tmux-conf/&quot;&gt;tmux.conf&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on December 20, 2014.&lt;/p&gt;
+  </content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Helping with knife-block]]></title>
+  <link rel="alternate" type="text/html" href="/writing/helping-with-knife-block/"/>
+  <id>/writing/helping-with-knife-block</id>
+  <published>2014-12-10T00:00:00-08:00</published>
+  <updated>2014-12-10T00:00:00-08:00</updated>
+  <author>
+    <name>Brandon Burton</name>
+    <uri></uri>
+    <email>brandon@inatree.org</email>
+  </author>
+  <category scheme="/tags/#chef" term="chef" /><category scheme="/tags/#knife" term="knife" /><category scheme="/tags/#knife-block" term="knife-block" />
+  <content type="html">
+    &lt;h1 id=&quot;helping-with-knife-block&quot;&gt;Helping with knife-block&lt;/h1&gt;
+
+&lt;p&gt;We make heavy use of &lt;a href=&quot;https://github.com/knife-block/knife-block&quot;&gt;knife-block&lt;/a&gt; in &lt;a href=&quot;https://twitter.com/lookout&quot;&gt;Lookout Operations&lt;/a&gt; and yesterday we encountered &lt;a href=&quot;https://github.com/knife-block/knife-block/issues/25&quot;&gt;an issue with it and Chef 12’s knife&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I really appreciate all the work &lt;a href=&quot;https://twitter.com/ProfFalken&quot;&gt;Matthew Macdonald-Wallace&lt;/a&gt; put into making knife-block and also his transparency in not having time/need to work on it anymore.&lt;/p&gt;
+
+&lt;p&gt;Last night I &lt;a href=&quot;https://twitter.com/ProfFalken/status/542607454178406400&quot;&gt;reached out to him&lt;/a&gt; about moving knife-block to its own &lt;a href=&quot;https://github.com/knife-block/&quot;&gt;Github org&lt;/a&gt; and taking over maintainence of the project. He was &lt;a href=&quot;https://twitter.com/ProfFalken/status/542608021097308160&quot;&gt;awesome enough to say yes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you’re an active user of knife-block, and especially if you’d like to help maintain it, &lt;a href=&quot;https://twitter.com/&quot;&gt;let me know on Twitter!&lt;/a&gt; or file &lt;a href=&quot;https://github.com/knife-block/knife-block/issues&quot;&gt;Github issues&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/writing/helping-with-knife-block/&quot;&gt;Helping with knife-block&lt;/a&gt; was originally published by Brandon Burton at &lt;a href=&quot;&quot;&gt;solarce.org&lt;/a&gt; on December 10, 2014.&lt;/p&gt;
+  </content>
+</entry>
 
 
 <entry>
