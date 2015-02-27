@@ -6,6 +6,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>http://solarce.org/aws-elb-backend-auth-with-the-cli/</loc>
+    <lastmod>2014-12-11T00:00:00-08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://solarce.org/writing/helping-with-knife-block/</loc>
     <lastmod>2014-12-10T00:00:00-08:00</lastmod>
     <priority>0.8</priority>
@@ -27,43 +32,43 @@
   </url>
   <url>
     <loc>http://solarce.org/tips/git.html</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://solarce.org/</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://solarce.org/tags/</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://solarce.org/writing/</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://solarce.org/tips/</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://solarce.org/about/</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://solarce.org/tips/tmux.html</loc>
-    <lastmod>2014-12-20T07:49:59-08:00</lastmod>
+    <lastmod>2015-02-27T09:52:46-08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

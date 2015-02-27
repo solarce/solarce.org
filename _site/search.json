@@ -9,6 +9,14 @@
 		} ,
 	
 		{
+		  "title"      : "Aws Elb Backend Auth With The Cli",
+		  "category"   : "",
+		  "url"        : "http://solarce.org/aws-elb-backend-auth-with-the-cli/",
+		  "date"       : "2014-12-11 00:00:00 -0800",
+		  "shortdate"  : "December 11, 2014"
+		} ,
+	
+		{
 		  "title"      : "Helping with knife-block",
 		  "category"   : "",
 		  "url"        : "http://solarce.org/writing/helping-with-knife-block/",
